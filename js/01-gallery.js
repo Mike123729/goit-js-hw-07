@@ -20,18 +20,14 @@ const item = galleryItems
 </div>`
   )
   .join('');
-// console.log(item);
 
 galleryEl.innerHTML = item;
-// console.log(galleryEl);
 
 galleryEl.addEventListener('click', onChangeImage);
 
 function onChangeImage(event) {
   event.preventDefault();
 
-  // console.log(event.target);
-  // console.log(event.currentTarget);
   if (event.target.nodeName !== 'IMG') {
     return;
   }
@@ -40,11 +36,4 @@ function onChangeImage(event) {
 `);
 
   instance.show();
-  // console.dir(event.target.alt);
 }
-
-// const instance = basicLightbox.create(`
-//     <img src="assets/images/image.png" width="800" height="600">
-// `);
-
-// instance.show();

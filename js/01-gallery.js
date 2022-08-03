@@ -3,26 +3,48 @@ import { galleryItems } from './gallery-items.js';
 
 // console.log(galleryItems);
 
-// <div class="gallery__item">
-//   <a class="gallery__link" href="large-image.jpg">
-//     <img
-//       class="gallery__image"
-//       src="small-image.jpg"
-//       data-source="large-image.jpg"
-//       alt="Image description"
-//     />
-//   </a>
-// </div>;
-
 const galleryEl = document.querySelector('.gallery');
 
-const item = galleryItems.map((image) => {
-  //   console.log(image);
-});
+const item = galleryItems
+  .map(
+    ({ preview, original, description }) =>
+      `<div class="gallery__item">
+  <a class="gallery__link" href="large-image.jpg">
+    <img
+      class="gallery__image"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
+    />
+  </a>
+</div>`
+  )
+  .join('');
+// console.log(item);
 
-// Создание и рендер разметки по массиву
-// данных galleryItems и предоставленному шаблону элемента галереи.
-// Реализация делегирования на div.gallery и получение url большого изображения.
-// Подключение скрипта и стилей библиотеки модального окна basicLightbox. Используй CDN сервис jsdelivr и добавь в проект ссылки на минифицированные (.min) файлы библиотеки.
-// Открытие модального окна по клику на элементе галереи. Для этого ознакомься с документацией и примерами.
-// Замена значения атрибута src элемента <img> в модальном окне перед открытием. Используй готовую разметку модального окна с изображением из примеров библиотеки basicLightbox.
+galleryEl.innerHTML = item;
+// console.log(galleryEl);
+
+galleryEl.addEventListener('click', onChangeImage);
+
+function onChangeImage(event) {
+  event.preventDefault();
+
+  // console.log(event.target);
+  // console.log(event.currentTarget);
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+  const instance = basicLightbox.create(`
+    <img src="${event.target.dataset.source}" width="800" height="600">
+`);
+
+  instance.show();
+  // console.dir(event.target.alt);
+}
+
+// const instance = basicLightbox.create(`
+//     <img src="assets/images/image.png" width="800" height="600">
+// `);
+
+// instance.show();
